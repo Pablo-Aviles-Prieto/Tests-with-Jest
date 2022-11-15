@@ -126,7 +126,7 @@ class Room {
     rooms.forEach((room) => {
       if (!room.bookings || !room.bookings.length) return;
       let roomIsOccupied = false;
-      
+
       room.bookings.forEach((roomBooking, i) => {
         if (!roomBooking.checkIn || !roomBooking.checkOut) return;
         const endDate = new Date(roomBooking.checkOut);
@@ -158,7 +158,25 @@ class Booking {
     this.room = params.room;
   }
 
-  getFee() {}
+  getFee() {
+    const endDate = new Date(this.checkOut);
+    endDate.setDate(this.checkOut.getDate() - 1);
+    const rangeOfDates = Room.getDatesFromRangeSameMonth(this.checkIn, endDate);
+    if (!rangeOfDates.length) return 0;
+
+    let totalRate = this.room.rate * rangeOfDates.length;
+
+    if (this.discount) {
+      const discountedRate = (totalRate * this.discount) / 100;
+      totalRate = totalRate - discountedRate;
+    }
+    if (this.room.discount) {
+      const roomDiscountRate = (totalRate * this.room.discount) / 100;
+      totalRate = totalRate - roomDiscountRate;
+    }
+    
+    return Number(totalRate.toFixed(2));
+  }
 }
 
 module.exports = { Room, Booking };

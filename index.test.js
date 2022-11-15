@@ -2,7 +2,7 @@ const { Room, Booking } = require('./index');
 
 const ROOM_TEMPLATE = {
   name: 'Supreme Deluxe II',
-  rate: 149.99,
+  rate: 150,
   discount: 10,
 };
 
@@ -259,5 +259,36 @@ describe('Quantity of rooms available', () => {
 
     expect(result).toBeInstanceOf(Array);
     expect(result).toHaveLength(0);
+  });
+});
+
+describe('Booking', () => {
+  test('returns 803.25 when 150/night, 7days, 15% and 10%', () => {
+    const booking = new Booking({
+      ...BOOKING_TEMPLATE,
+      checkIn: new Date('2022-11-03'),
+      checkOut: new Date('2022-11-10'),
+    });
+    const room = new Room({ ...ROOM_TEMPLATE });
+    booking.room = room;
+
+    const result = booking.getFee();
+    expect(result).toEqual(803.25);
+    expect(result).toEqual(expect.any(Number));
+  });
+
+  test('returns 1050 when 150/night, 7days, no discounts', () => {
+    const booking = new Booking({
+      ...BOOKING_TEMPLATE,
+      checkIn: new Date('2022-11-03'),
+      checkOut: new Date('2022-11-10'),
+      discount: 0,
+    });
+    const room = new Room({ ...ROOM_TEMPLATE, discount: 0 });
+    booking.room = room;
+
+    const result = booking.getFee();
+    expect(result).toEqual(1050);
+    expect(result).toEqual(expect.any(Number));
   });
 });
