@@ -174,7 +174,7 @@ class Booking {
       const roomDiscountRate = (totalRate * this.room.discount) / 100;
       totalRate = totalRate - roomDiscountRate;
     }
-    
+
     return Number(totalRate.toFixed(2));
   }
 }
