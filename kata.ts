@@ -1,13 +1,13 @@
 // https://www.codewars.com/kata/60a1aac7d5a5fc0046c89651
 
-export const kataTypeScript = (string: string) => {
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+export const lastSurvivors = (string: string): string | void => {
   const hasDuplicatedChars = checkingForDuplicated(string);
-  if (hasDuplicatedChars) return charactersSliceHandler(string);
-  console.log('result', string);
-  return string;
+  return hasDuplicatedChars ? oneSliceHandler(string) : string;
 };
 
-export const checkingForDuplicated = (string: string) => {
+export const checkingForDuplicated = (string: string): boolean => {
   for (let i: number = 0; i < string.length; i++) {
     const regex = new RegExp(`${string[i]}`, 'g');
     const numberOfEqualLetters = [...string.matchAll(regex)].length;
@@ -16,18 +16,17 @@ export const checkingForDuplicated = (string: string) => {
   return false;
 };
 
-export const charactersSliceHandler = (string: string) => {
-  const stringToArray: string[] = string.split('');
-  const alphabet: string = 'abcdefghijklmnopqrstuvwxyz';
+export const oneSliceHandler = (string: string): string | void => {
+  const stringToArray = string.split('');
 
   for (let i: number = 0; i < string.length; i++) {
     const regex = new RegExp(`${string[i]}`, 'g');
     const equalLetters: any[] = [...string.matchAll(regex)];
-    const numberOfEqualLetters: number = [...string.matchAll(regex)].length;
+    const numberOfEqualLetters = [...string.matchAll(regex)].length;
 
     if (numberOfEqualLetters > 1) {
-      const numberOfNextLetters: number = Math.floor(numberOfEqualLetters / 2);
-      const indexOfLetter: number = alphabet.indexOf(string[i]);
+      const numberOfNextLetters = Math.floor(numberOfEqualLetters / 2);
+      const indexOfLetter = alphabet.indexOf(string[i]);
       let letter: string = '';
       letter = alphabet[indexOfLetter + 1];
 
@@ -46,11 +45,16 @@ export const charactersSliceHandler = (string: string) => {
       [...Array(numberOfNextLetters)].forEach((_, i) => {
         stringToArray.push(letter);
       });
-      const parsedString: string = [...stringToArray].join('');
-      return kataTypeScript(parsedString);
+      const parsedString = [...stringToArray].join('');
+      return lastSurvivors(parsedString);
     }
   }
-  throw new Error('Infinite loop detected');
+  throw new Error('Possible infinite loop detected');
 };
 
-kataTypeScript('zzzab');
+console.log(
+  'result',
+  lastSurvivors(
+    'xsdlafqpcmjytoikojsecamgdkehrqqgfknlhoudqygkbxftivfbpxhxtqgpkvsrfflpgrlhkbfnyftwkdebwfidmpauoteahyh'
+  )
+);

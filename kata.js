@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.kataTypeScript = exports.checkingForDuplicated = exports.charactersSliceHandler = void 0;
+exports.oneSliceHandler = exports.lastSurvivors = exports.checkingForDuplicated = void 0;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -13,13 +13,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 // https://www.codewars.com/kata/60a1aac7d5a5fc0046c89651
 
-var kataTypeScript = function kataTypeScript(string) {
+var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+var lastSurvivors = function lastSurvivors(string) {
   var hasDuplicatedChars = checkingForDuplicated(string);
-  if (hasDuplicatedChars) return charactersSliceHandler(string);
-  console.log('result', string);
-  return string;
+  return hasDuplicatedChars ? oneSliceHandler(string) : string;
 };
-exports.kataTypeScript = kataTypeScript;
+exports.lastSurvivors = lastSurvivors;
 var checkingForDuplicated = function checkingForDuplicated(string) {
   for (var i = 0; i < string.length; i++) {
     var regex = new RegExp("".concat(string[i]), 'g');
@@ -29,9 +28,8 @@ var checkingForDuplicated = function checkingForDuplicated(string) {
   return false;
 };
 exports.checkingForDuplicated = checkingForDuplicated;
-var charactersSliceHandler = function charactersSliceHandler(string) {
+var oneSliceHandler = function oneSliceHandler(string) {
   var stringToArray = string.split('');
-  var alphabet = 'abcdefghijklmnopqrstuvwxyz';
   for (var i = 0; i < string.length; i++) {
     var regex = new RegExp("".concat(string[i]), 'g');
     var equalLetters = _toConsumableArray(string.matchAll(regex));
@@ -56,13 +54,13 @@ var charactersSliceHandler = function charactersSliceHandler(string) {
         });
         var parsedString = _toConsumableArray(stringToArray).join('');
         return {
-          v: kataTypeScript(parsedString)
+          v: lastSurvivors(parsedString)
         };
       }();
       if (_typeof(_ret) === "object") return _ret.v;
     }
   }
-  throw new Error('Infinite loop detected');
+  throw new Error('Possible infinite loop detected');
 };
-exports.charactersSliceHandler = charactersSliceHandler;
-kataTypeScript('zzzab');
+exports.oneSliceHandler = oneSliceHandler;
+console.log('result', lastSurvivors('xsdlafqpcmjytoikojsecamgdkehrqqgfknlhoudqygkbxftivfbpxhxtqgpkvsrfflpgrlhkbfnyftwkdebwfidmpauoteahyh'));
