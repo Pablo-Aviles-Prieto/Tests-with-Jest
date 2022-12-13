@@ -1,24 +1,24 @@
-type BookingParams = {
+export interface BookingParams {
   name: string;
   email: string;
   discount: number;
   checkIn: Date;
   checkOut: Date;
-  room: any;
-};
+  room: RoomParams;
+}
 
-interface BookingMethods {
+export interface BookingMethods {
   getFee(): number;
 }
 
-type RoomParams = {
+export interface RoomParams {
   name: string;
-  bookings: any[]
+  bookings: BookingParams[];
   rate: number;
   discount: number;
-};
+}
 
-interface RoomMethods {
+export interface RoomMethods {
   isOccupied(date: Date): boolean;
   occupancyPercentage(startDate: Date, endDate: Date): number;
 }
