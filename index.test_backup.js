@@ -1,4 +1,4 @@
-const { Room, Booking } = require('./index.js');
+const { Room, Booking } = require('./index');
 
 const ROOM_TEMPLATE = {
   name: 'Supreme Deluxe II',

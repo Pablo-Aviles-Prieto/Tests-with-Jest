@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "jest",
-    "kata": "babel kata.ts --out-file kata.js"
+    "kata": "babel kata.ts --out-file kata.js",
+    "parseIndex": "babel index.ts --out-file index.js"
   }
 }
