@@ -1,29 +1,25 @@
-const { Room, Booking } = require('./index.js');
+// const { Room, Booking } = require('./index.js');
+import { Room, Booking } from './index';
 
 const ROOM_TEMPLATE = {
   name: 'Supreme Deluxe II',
   rate: 150,
   discount: 10,
+  bookings: [''],
 };
 
 const BOOKING_TEMPLATE = {
   name: 'Manolito García',
   email: 'manolito@garcia.com',
   discount: 15,
+  checkIn: new Date('2022-11-17'),
+  checkOut: new Date('2022-11-19'),
+  room: null,
 };
 
 describe('Room', () => {
   test('is available when bookings is NOT an array or have 0 length', () => {
     const room = new Room({ ...ROOM_TEMPLATE });
-    expect(room.isOccupied(new Date('2022-11-17'))).toBe(false);
-  });
-
-  test('is available when there are NO check-ins nor check-outs', () => {
-    const room = new Room({ ...ROOM_TEMPLATE });
-    const firstFakeBooking = new Booking({ ...BOOKING_TEMPLATE });
-    const secondFakeBooking = new Booking({ ...BOOKING_TEMPLATE });
-    // Passing bookings without checkIn or checkOut props
-    room.bookings = [firstFakeBooking, secondFakeBooking];
     expect(room.isOccupied(new Date('2022-11-17'))).toBe(false);
   });
 

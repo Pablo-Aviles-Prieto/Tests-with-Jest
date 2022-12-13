@@ -11,6 +11,7 @@
   "scripts": {
     "test": "jest",
     "kata": "babel kata.ts --out-file kata.js",
-    "parseIndex": "babel index.ts --out-file index.js"
+    "parseIndex": "babel index.ts --out-file index.js",
+    "parseTest": "babel index.test.ts --out-file index.test.js"
   }
 }

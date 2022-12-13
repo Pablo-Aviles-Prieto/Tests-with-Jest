@@ -4,7 +4,7 @@ type BookingParams = {
   discount: number;
   checkIn: Date;
   checkOut: Date;
-  room: RoomParams;
+  room: any;
 };
 
 interface BookingMethods {
@@ -13,7 +13,7 @@ interface BookingMethods {
 
 type RoomParams = {
   name: string;
-  bookings: [BookingParams];
+  bookings: any[]
   rate: number;
   discount: number;
 };
@@ -23,9 +23,9 @@ interface RoomMethods {
   occupancyPercentage(startDate: Date, endDate: Date): number;
 }
 
-class Room implements RoomMethods {
+export class Room implements RoomMethods {
   name: string;
-  bookings: [BookingParams];
+  bookings: BookingParams[];
   rate: number;
   discount: number;
   constructor({ name, bookings, rate, discount }: RoomParams) {
@@ -185,7 +185,7 @@ class Room implements RoomMethods {
   }
 }
 
-class Booking implements BookingMethods {
+export class Booking implements BookingMethods {
   name: string;
   email: string;
   discount: number;
